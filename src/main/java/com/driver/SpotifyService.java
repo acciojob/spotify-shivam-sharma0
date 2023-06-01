@@ -80,6 +80,6 @@ public class SpotifyService {
     }
 
     public String mostPopularSong() {
-   return mostPopularSong();
+   return spotifyRepository.mostPopularSong();
     }
 }

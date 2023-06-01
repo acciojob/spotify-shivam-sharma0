@@ -155,7 +155,9 @@ public class SpotifyRepository {
                 break;
             }
         }
-        artistAlbumMap.put(artist1,artistAlbumMap.getOrDefault(artist1,new ArrayList<>())).add(album);
+        List<Album> albumList=artistAlbumMap.getOrDefault(artist1,new ArrayList<>());
+        albumList.add(album);
+        artistAlbumMap.put(artist1,albumList);
         return album;
     }
 
@@ -169,7 +171,9 @@ public class SpotifyRepository {
                 break;
             }
         }
-        albumSongMap.put(album,albumSongMap.getOrDefault(album,new ArrayList<>())).add(song);
+        List<Song> songList=albumSongMap.getOrDefault(album,new ArrayList<>());
+        songList.add(song);
+        albumSongMap.put(album,songList);
         return song;
     }
 
@@ -206,7 +210,9 @@ public class SpotifyRepository {
         }
         playlistSongMap.put(playlist,songList);
         creatorPlaylistMap.put(user1,playlist);
-        userPlaylistMap.put(user1,userPlaylistMap.getOrDefault(user1,new ArrayList<>())).add(playlist);
+        List<Playlist> playlistList=userPlaylistMap.getOrDefault(user1,new ArrayList<>());
+        playlistList.add(playlist);
+        userPlaylistMap.put(user1,playlistList);
         return playlist;
     }
 
@@ -311,7 +317,9 @@ public class SpotifyRepository {
         if (songLikeMap.containsKey(song) && songLikeMap.get(song).contains(user)){
             return song;
         }
-        songLikeMap.put(song,songLikeMap.getOrDefault(song,new ArrayList<>())).add(user);
+        List<User> userList=songLikeMap.getOrDefault(song,new ArrayList<>());
+        userList.add(user);
+        songLikeMap.put(song,userList);
 
         Album album1=null;
         for ( Album album: albumSongMap.keySet()){
