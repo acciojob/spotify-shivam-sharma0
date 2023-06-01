@@ -210,9 +210,7 @@ public class SpotifyRepository {
         }
         playlistSongMap.put(playlist,songList);
         creatorPlaylistMap.put(user1,playlist);
-        List<Playlist> playlistList=userPlaylistMap.getOrDefault(user1,new ArrayList<>());
-        playlistList.add(playlist);
-        userPlaylistMap.put(user1,playlistList);
+
         return playlist;
     }
 
@@ -249,7 +247,6 @@ public class SpotifyRepository {
         }
         playlistSongMap.put(playlist,songList);
         creatorPlaylistMap.put(user1,playlist);
-        userPlaylistMap.put(user1,userPlaylistMap.getOrDefault(user1,new ArrayList<>())).add(playlist);
         return playlist;
     }
 
