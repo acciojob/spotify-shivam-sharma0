@@ -199,7 +199,7 @@ public class SpotifyRepository {
                 break;
             }
         }
-        if (flag1==false)playlist=new Playlist();
+        if (flag1==false)playlist=new Playlist(title);
         if (!playlists.contains(playlist))playlists.add(playlist);
 
         List<Song> songList=new ArrayList<>();
@@ -229,18 +229,8 @@ public class SpotifyRepository {
         if (flag==false){
             throw new Exception("User does not exist");
         }
-        Playlist playlist= null;
-        boolean flag1=false;
-        for (Playlist playlist1:playlists){
-            if (playlist1.getTitle().equals(title)){
-                playlist=playlist1;
-                flag1=true;
-                break;
-            }
-        }
-        if (flag1==false)playlist=new Playlist();
+        Playlist playlist= new Playlist(title);
         if (!playlists.contains(playlist))playlists.add(playlist);
-
         List<Song> songList=new ArrayList<>();
         for (Song song:songs){
             if (songTitles.contains(song.getTitle())){
