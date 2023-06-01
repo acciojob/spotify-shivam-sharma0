@@ -190,17 +190,9 @@ public class SpotifyRepository {
         if (flag==false){
             throw new Exception("User does not exist");
         }
-        Playlist playlist= null;
-        boolean flag1=false;
-        for (Playlist playlist1:playlists){
-            if (playlist1.getTitle().equals(title)){
-                playlist=playlist1;
-                flag1=true;
-                break;
-            }
-        }
-        if (flag1==false)playlist=new Playlist(title);
-        if (!playlists.contains(playlist))playlists.add(playlist);
+        Playlist playlist= new Playlist(title);
+
+     playlists.add(playlist);
 
         List<Song> songList=new ArrayList<>();
         for (Song song:songs){
@@ -209,7 +201,9 @@ public class SpotifyRepository {
             }
         }
         playlistSongMap.put(playlist,songList);
+
         creatorPlaylistMap.put(user1,playlist);
+
         List<Playlist> playlistList=userPlaylistMap.getOrDefault(user1,new ArrayList<>());
         playlistList.add(playlist);
         userPlaylistMap.put(user1,playlistList);
@@ -230,7 +224,9 @@ public class SpotifyRepository {
             throw new Exception("User does not exist");
         }
         Playlist playlist= new Playlist(title);
-        if (!playlists.contains(playlist))playlists.add(playlist);
+
+        playlists.add(playlist);
+
         List<Song> songList=new ArrayList<>();
         for (Song song:songs){
             if (songTitles.contains(song.getTitle())){
@@ -264,21 +260,29 @@ public class SpotifyRepository {
          if(playlist1.getTitle().equals(playlistTitle)){
              playListFlag=true;
              playlist=playlist1;
+             break;
          }
      }
      if(playListFlag==false){
          throw  new Exception("Playlist does not exist");
      }
 
-     if(!creatorPlaylistMap.containsKey(user) && !creatorPlaylistMap.get(user).getTitle().equals(playlistTitle) && !userPlaylistMap.containsKey(user) && !userPlaylistMap.get(user).contains(playlist)){
+     if(creatorPlaylistMap.containsKey(user) && creatorPlaylistMap.get(user).getTitle().equals(playlistTitle)){
+         return playlist;
+     }
+     if(userPlaylistMap.containsKey(user) && userPlaylistMap.get(user).contains(playlist)){
+         return playlist;
+     }else{
          List<Playlist> playlistList=userPlaylistMap.getOrDefault(user,new ArrayList<>());
          playlistList.add(playlist);
          userPlaylistMap.put(user,playlistList);
-
-         List<User> userList=playlistListenerMap.getOrDefault(playlist,new ArrayList<>());
-         userList.add(user);
-         playlistListenerMap.put(playlist,userList);
      }
+
+
+     List<User> userList=playlistListenerMap.getOrDefault(playlist,new ArrayList<>());
+     userList.add(user);
+     playlistListenerMap.put(playlist,userList);
+
      return playlist;
     }
 
