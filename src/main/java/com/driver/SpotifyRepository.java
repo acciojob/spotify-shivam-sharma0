@@ -284,8 +284,13 @@ public class SpotifyRepository {
      if(userPlaylistMap.containsKey(user) && userPlaylistMap.get(user).contains(playlist)){
          return playlist;
      }
-     userPlaylistMap.put(user,userPlaylistMap.getOrDefault(user,new ArrayList<>())).add(playlist);
-     playlistListenerMap.put(playlist,playlistListenerMap.getOrDefault(playlist,new ArrayList<>())).add(user);
+     List<Playlist> playlistList=userPlaylistMap.getOrDefault(user,new ArrayList<>());
+     playlistList.add(playlist);
+     userPlaylistMap.put(user,playlistList);
+
+     List<User> userList=playlistListenerMap.getOrDefault(playlist,new ArrayList<>());
+     userList.add(user);
+     playlistListenerMap.put(playlist,userList);
      return playlist;
     }
 
