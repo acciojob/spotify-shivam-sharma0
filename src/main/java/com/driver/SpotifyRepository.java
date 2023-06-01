@@ -332,7 +332,7 @@ public class SpotifyRepository {
         }
         song.setLikes(song.getLikes()+1);
         artist.setLikes(artist.getLikes()+1);
-        return Song;
+        return song;
     }
 
     public String mostPopularArtist() {
