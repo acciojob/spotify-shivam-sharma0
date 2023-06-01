@@ -270,22 +270,15 @@ public class SpotifyRepository {
          throw  new Exception("Playlist does not exist");
      }
 
-//     && creatorPlaylistMap.get(user).getTitle().equals(playlistTitle)
-     if(creatorPlaylistMap.containsKey(user)){
-         return playlist;
-     }
-//     && userPlaylistMap.get(user).contains(playlist)
-     if(userPlaylistMap.containsKey(user) ){
-         return playlist;
-     }
+     if(!creatorPlaylistMap.containsKey(user) && !creatorPlaylistMap.get(user).getTitle().equals(playlistTitle) && !userPlaylistMap.containsKey(user) && !userPlaylistMap.get(user).contains(playlist)){
+         List<Playlist> playlistList=userPlaylistMap.getOrDefault(user,new ArrayList<>());
+         playlistList.add(playlist);
+         userPlaylistMap.put(user,playlistList);
 
-     List<Playlist> playlistList=userPlaylistMap.getOrDefault(user,new ArrayList<>());
-     playlistList.add(playlist);
-     userPlaylistMap.put(user,playlistList);
-
-     List<User> userList=playlistListenerMap.getOrDefault(playlist,new ArrayList<>());
-     userList.add(user);
-     playlistListenerMap.put(playlist,userList);
+         List<User> userList=playlistListenerMap.getOrDefault(playlist,new ArrayList<>());
+         userList.add(user);
+         playlistListenerMap.put(playlist,userList);
+     }
      return playlist;
     }
 
